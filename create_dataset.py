@@ -44,7 +44,7 @@ def create_dataset():
         os.mkdir(dir + '/test')
 
     years, quarters = get_years_and_quarters()
-    tu_start = '2014-01-05'
+    tu_start = '2012-01-02'
     
     for year in years:
         for Q in quarters:      

@@ -45,7 +45,7 @@ def main():
         
         for year in years:
             for Q in quaters:
-                num = (year - 2018) * 4 + (Q - 1)
+                num = (year - 2016) * 4 + (Q - 1)
                 args.iter = testcases[num]
                 target_stocks, action_dim = targets(year=year, Q=Q, num=target_num)
                 agent = Agent(args, action_dim)

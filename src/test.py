@@ -11,6 +11,7 @@ from src.utils.recorder import Recorder
 
 TEST_NUM = 5
 TURBULENCE_THRESHOLD = 140
+TRADE_INTERVAL = 5
 
 
 def test(args, agent, recorder, target_stocks, test_history, test_dating, 
@@ -53,14 +54,17 @@ def test(args, agent, recorder, target_stocks, test_history, test_dating,
         
         for t in itertools.count(start=1): 
             if trade:
-                if args.algo == 'PPO':
-                    use_action, action, _, _ = agent.choose_action(state, current_weights)
+                if t % TRADE_INTERVAL == 0:
+                    if args.algo == 'PPO':
+                        use_action, action, _, _ = agent.choose_action(state, current_weights)
 
-                elif args.algo == 'DDPG':
-                    use_action = agent.choose_action(state, old_action, noise_inp=False)
+                    elif args.algo == 'DDPG':
+                        use_action = agent.choose_action(state, old_action, noise_inp=False)
 
-                elif args.algo == 'SAC':
-                    _, use_action, _ = agent.choose_action(state, current_weights)
+                    elif args.algo == 'SAC':
+                        _, use_action, _ = agent.choose_action(state, current_weights)
+                else:
+                    use_action = current_weights
 
             else:
                 use_action = init_action
