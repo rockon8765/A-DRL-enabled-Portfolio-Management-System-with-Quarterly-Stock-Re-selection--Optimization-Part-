@@ -12,7 +12,7 @@ from src.utils.define_args import define_args
 from src.utils.draw import draw_test_figs, show_test_results, show_val_results
 from src.utils.evaluation import evaluation_metrics
 from src.utils.recorder import Container
-from src.utils.yahoodownloader import get_data, get_data_repo
+from src.utils.data import get_data, get_data_repo
 
 
 data_repo = get_data_repo()
@@ -36,7 +36,7 @@ def test(args, year, Q, test_start_date):
     target_stocks = get_targets(year=year, Q=Q, num=None)
     #weights = mv_weights(year, Q)
     #weights = np.array(list(weights.values()))
-    target_stocks = target_stocks[:20]
+    #target_stocks = target_stocks[:20]
     TARGET_NUM = len(target_stocks)
     mv_recorder = Container()
     

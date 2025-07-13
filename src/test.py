@@ -54,7 +54,7 @@ def test(args, agent, recorder, target_stocks, test_history, test_dating,
         
         for t in itertools.count(start=1): 
             if trade:
-                if t % TRADE_INTERVAL == 0:
+                if args.val or (t % TRADE_INTERVAL == 0):
                     if args.algo == 'PPO':
                         use_action, action, _, _ = agent.choose_action(state, current_weights)
 

@@ -68,6 +68,11 @@ def render():
     sharpe, sortino, mdd = evaluation_metrics(ptfl_returns, ptfls)
     ew_sharpe, ew_sortino, ew_mdd = evaluation_metrics(ew_returns, ews)
     
+    sp_return = sp100s[1:] / sp100s[:-1] - 1
+    sp_sharpe, sp_sortino, sp_mdd = evaluation_metrics(sp_return, sp100s)
+    
     print('======\nOverall Evaluations:')
-    print('RL: Sharpe = {:.3f}, Sortino = {:.3f}, MDD = {:.3f}'.format(sharpe, sortino, mdd))
-    print('EW: Sharpe = {:.3f}, Sortino = {:.3f}, MDD = {:.3f}'.format(ew_sharpe, ew_sortino, ew_mdd))
+    print('RL: Value = {:.3f}, Sharpe = {:.3f}, Sortino = {:.3f}, MDD = {:.3f}'.format(ptfls[-1], sharpe, sortino, mdd))
+    print('EW: Value = {:.3f}, Sharpe = {:.3f}, Sortino = {:.3f}, MDD = {:.3f}'.format(ews[-1], ew_sharpe, ew_sortino, ew_mdd))
+    print('SP: Value = {:.3f}, Sharpe = {:.3f}, Sortino = {:.3f}, MDD = {:.3f}'.format(sp100s[-1], sp_sharpe, sp_sortino, sp_mdd))
+    
