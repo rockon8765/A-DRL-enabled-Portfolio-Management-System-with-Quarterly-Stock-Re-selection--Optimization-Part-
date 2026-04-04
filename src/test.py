@@ -11,6 +11,7 @@ from src.utils.recorder import Recorder
 
 TEST_NUM = 5
 TURBULENCE_THRESHOLD = 140
+TRADE_INTERVAL = 1
 
 
 def test(args, agent, recorder, target_stocks, test_history, test_dating, 
@@ -51,20 +52,23 @@ def test(args, agent, recorder, target_stocks, test_history, test_dating,
         eqwt_action = get_init_action(action_dim, ew=True)
         trade = True
         
-        for t in itertools.count(start=1): 
-            if trade:
-                if args.algo == 'PPO':
-                    use_action, action, _, _ = agent.choose_action(state, current_weights)
+        for t in itertools.count(start=0):
+            if t % TRADE_INTERVAL == 0: 
+                if trade:
+                    if args.algo == 'PPO':
+                        use_action, action, _, _ = agent.choose_action(state, current_weights)
 
-                elif args.algo == 'DDPG':
-                    use_action = agent.choose_action(state, old_action, noise_inp=False)
+                    elif args.algo == 'DDPG':
+                        use_action = agent.choose_action(state, old_action, noise_inp=False)
 
-                elif args.algo == 'SAC':
-                    _, use_action, _ = agent.choose_action(state, current_weights)
+                    elif args.algo == 'SAC':
+                        _, use_action, _ = agent.choose_action(state, current_weights)
 
+                else:
+                    use_action = init_action
             else:
-                use_action = init_action
-                
+                use_action = current_weights
+
             current_weights, next_observation, reward, excess_ew_return, done, trade_info, tu = env.step(current_weights, use_action)
             eqwt_action, _, _, _, _, eqwt_trade_info, _ = eqwt_env.step(eqwt_action, eqwt_action)
             
