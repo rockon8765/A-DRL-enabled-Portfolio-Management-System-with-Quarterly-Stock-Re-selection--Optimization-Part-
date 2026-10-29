@@ -1,0 +1,19 @@
+# drl-us env: python 3.12 (conda-forge), packages via pip. CPU torch by default.
+# Verified on Windows 11 x64 (CPU only) on 2026-10-30.
+#   conda create -n drl-us -c conda-forge python=3.12 pip
+#   conda activate drl-us
+#   python -m pip install -r requirements.txt
+# Full transitive pins: requirements-lock.txt
+# yfinance is intentionally not included (data comes from FinLab), so
+# create_dataset.py / src/utils/yahoodownloader.py do not run in this env.
+# The extra index is searched together with PyPI, not only for torch.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.15.0+cpu; sys_platform != "darwin"
+torch==2.15.0; sys_platform == "darwin"
+numpy==2.5.4
+pandas==3.1.0
+scipy==1.18.1
+matplotlib==3.11.2
+cvxpy==1.9.3
+pyportfolioopt==1.6.0
+pyarrow==26.0.0
