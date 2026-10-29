@@ -12,7 +12,6 @@ from src.utils.define_args import define_args
 from src.utils.draw import draw_test_figs, show_test_results, show_val_results
 from src.utils.evaluation import evaluation_metrics
 from src.utils.recorder import Container
-from src.utils.yahoodownloader import get_data, get_data_repo
 
 
 data_repo = get_data_repo()
